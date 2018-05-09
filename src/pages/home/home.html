@@ -1,14 +1,28 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Nutrition Scanner
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <!-- <ion-content>{{ resultv }}</ion-content> -->
+  <ion-card *ngFor="let item of items | async">
+    <img [src]="'data:image/png;base64,' + item.imageData" />
+    <ion-card-content>
+      <ion-list no-lines>
+        <ion-list-header>
+          Labels
+        </ion-list-header>
+        <ion-item *ngIf="item.results" >
+          <ion-item *ngFor="let label of item.results[0].labelAnnotations">{{label.description}}</ion-item>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button full (click)="takePhoto()">
+    <ion-icon name="camera"></ion-icon>Take Photo
+  </button>
+
 </ion-content>
